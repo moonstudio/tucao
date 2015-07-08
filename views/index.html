@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<!--五秒刷新-->
+<meta http-equiv="refresh" content="50">
+<title>官方吐槽平台</title>
+<style type="text/css">
+
+html {
+    min-height: 100%;
+}
+
+@-webkit-keyframes animate-cloud {
+  from {
+    background-position: 600px 100%;
+  }
+  to {
+    background-position: 0 100%;
+  }
+}
+@-moz-keyframes animate-cloud {
+  from {
+    background-position: 600px 100%;
+  }
+  to {
+    background-position: 0 100%;
+  }
+}
+@-ms-keyframes animate-cloud {
+  from {
+    background-position: 600px 100%;
+  }
+  to {
+    background-position: 0 100%;
+  }
+}
+@-o-keyframes animate-cloud {
+  from {
+    background-position: 600px 100%;
+  }
+  to {
+    background-position: 0 100%;
+  }
+}
+
+
+body{
+  margin:3em;
+  color:#fff;
+  background:#049ec4 url(static/img/cloud.png) top center;
+  -webkit-animation: animate-cloud 20s linear infinite;
+  -moz-animation: animate-cloud 20s linear infinite;
+  -ms-animation: animate-cloud 20s linear infinite;
+  -o-animation: animate-cloud 20s linear infinite;
+  animation: animate-cloud 20s linear infinite;
+  width: auto;
+  height: auto;
+  color: #565656;
+  font: 12px "微软雅黑";
+  font-size:100%;
+  background-repeat:repeat-x;
+  background-attachment:fixed
+}
+header{
+  color:#ffffff;
+}
+h2{
+  margin-top: 0px; 
+  margin-bottom: 0px;
+}
+h2,p{
+  font-size:100%;
+  font-weight:normal;
+}
+ul,li{
+  list-style:none;
+}
+ul{
+  overflow:hidden;
+  padding:3em;
+}
+ul li a{
+  text-decoration:none;
+  color:#000;
+  background:#ffc;
+  display:block;
+  height:10em;
+  width:10em;
+  padding:1em;
+  -moz-box-shadow:5px 5px 7px rgba(33,33,33,1);
+  -webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+  box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+  -moz-transition:-moz-transform .15s linear;
+  -o-transition:-o-transform .15s linear;
+  -webkit-transition:-webkit-transform .15s linear;
+}
+ul li{
+  margin:1em;
+  float:left;
+}
+ul li h2{
+  font-size:140%;
+  font-weight:bold;
+  padding-bottom:3px;
+}
+ul li p{
+  font-family:"Reenie Beanie",arial,sans-serif;
+  font-size:100%;
+}
+ul li a{
+  -webkit-transform: rotate(-6deg);
+  -o-transform: rotate(-6deg);
+  -moz-transform:rotate(-6deg);
+}
+ul li:nth-child(even) a{
+  -o-transform:rotate(4deg);
+  -webkit-transform:rotate(4deg);
+  -moz-transform:rotate(4deg);
+  position:relative;
+  top:5px;
+  background:#cfc;
+}
+ul li:nth-child(3n) a{
+  -o-transform:rotate(-3deg);
+  -webkit-transform:rotate(-3deg);
+  -moz-transform:rotate(-3deg);
+  position:relative;
+  top:-5px;
+  background:#ccf;
+}
+ul li:nth-child(5n) a{
+  -o-transform:rotate(5deg);
+  -webkit-transform:rotate(5deg);
+  -moz-transform:rotate(5deg);
+  position:relative;
+  top:-10px;
+}
+ul li a:hover,ul li a:focus{
+  box-shadow:10px 10px 7px rgba(0,0,0,.7);
+  -moz-box-shadow:10px 10px 7px rgba(0,0,0,.7);
+  -webkit-box-shadow: 10px 10px 7px rgba(0,0,0,.7);
+  -webkit-transform: scale(1.25);
+  -moz-transform: scale(1.25);
+  -o-transform: scale(1.25);
+  position:relative;
+  z-index:5;
+}
+.form-control{
+  width: 50%;
+  height: 30px;
+  margin-left:20%;
+  border-radius:5px;
+}
+.form-group{
+  
+}
+.btn{
+  width: 60px;
+  height: 35px;
+}
+</style>
+</head>
+<body>
+  <header>
+    <h1>欢迎来到匿名吐槽平台</h1>
+    <p>在这里你可以疯狂的吐槽，要多疯狂有多疯狂！目前已经吐槽了<span style="color:blue">{{.Num}}</span> 次</p>
+    <p><a href="/attachment/tucao.zip">诚信源码下载</a></p>
+  </header>
+  <br/>
+  <div>
+    <form action="/tucao" method="post">
+        <div class="form-group">
+          <input class="form-control" id="tucaostr" placeholder="请将您的名人名言在这里输入" name="tucaostr">
+          <button class="btn" type="submit" onclick="return checkInput()">发射</button>
+        </div>
+    </form>
+  </div>
+
+  <ul>
+    {{range .TuCaos}}
+      <li>
+        <a href="#">
+          <h2>#{{.Id}}</h2>
+          <p>{{.Content}}</p>
+        </a>
+    </li>
+    {{end}}
+  </ul>
+</body>
+</html>
+<script type="text/javascript">
+  function checkInput(){
+    var tucaostr = document.getElementById("tucaostr");
+    if(tucaostr.value.length==0){
+      alert('啥都没说，不能发射！');
+      return false;
+    }else if(tucaostr.value.length>50){
+      alert('吐槽要精辟，字不能超过50个！');
+      return false;
+    }
+
+    return true;
+  }
+   var si;
+        function tangmu(){
+            clearInterval(si);
+            var text = document.getElementById("tucaostr");
+            var tangmu = document.getElementById("tangmu");
+ 
+            var textStyle="<font id=\"textStyle\">"+text.value+"</font>";
+             
+            mathHeight = Math.round(Math.random()*tangmu.offsetHeight)+"px";
+ 
+            var textLeft=tangmu.offsetWidth+"px";
+             
+            tangmu.innerHTML=textStyle;
+             
+            var textStyleObj = document.getElementById("textStyle");
+             
+            textStyleObj.style.left=textLeft;
+            textStyleObj.style.top=mathHeight;
+             
+            var x=parseInt(textStyleObj.style.left);
+             
+            si = setInterval("xunhuan("+x+")",100);
+             
+        }
+        function xunhuan(left){
+            var textStyleObj = document.getElementById("textStyle");
+            textStyleObj.style.left=left;
+             
+            var x=parseInt(textStyleObj.style.left);
+ 
+            if(x<textStyleObj.style.width){
+                document.getElementById("tangmu").innerHTML="";
+                clearInterval(si);
+            }else{
+                x-=15;
+            }
+             
+            textStyleObj.style.left=x+"px";
+        }
+</script>
